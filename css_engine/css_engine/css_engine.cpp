@@ -8,6 +8,7 @@
 using namespace std;
 int main(int argc, char** argv)
 {
+    BlockList mainList;
     CustomString buffer("");
     CustomString att("");
     CustomString sel("");
@@ -30,15 +31,14 @@ int main(int argc, char** argv)
         case '}':
             AttributeList AttributeL;
             SelectorList SelectorL;
+            
 
             attribute = 0;
             DissectAndAppendSelectors(&SelectorL, &sel);
             DissectAndAppendAttributes(&AttributeL, &att, ";");
 
-            SelectorL.PrintList();
-            AttributeL.PrintList();
-            cout << endl;
-
+            Section Section(AttributeL, SelectorL);
+            Section.PrintSection();
 
             att.EmptyString();
             sel.EmptyString();
