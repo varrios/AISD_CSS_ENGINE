@@ -1,0 +1,9 @@
+Dodawanie wezla do glownej listy:
+
+1) patrzymy na tail
+jesli holding >= T:
+	tworzymy nowy wezel;
+	dodajemy sekcje do tablicy;
+jesli holding < T:
+	przechodzimy przez tablice i znajdujemy wolne miejsce
+	dodajemy sekcje do tablicy;

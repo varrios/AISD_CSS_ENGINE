@@ -6,6 +6,7 @@ Section::Section(AttributeList AttListA, SelectorList SelListA) {
 }
 
 Section::Section() {
+	added = '0';
 }
 
 void Section::PrintSection() {

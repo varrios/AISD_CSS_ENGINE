@@ -45,7 +45,7 @@ int main(int argc, char** argv)
             Section.PrintSection();
             cout << endl;*/
 
-            mainList.AppendNode(Section);
+            mainList.AppendNode2(Section);
 
             att.EmptyString();
             sel.EmptyString();
@@ -62,7 +62,7 @@ int main(int argc, char** argv)
         }
 
     }
-    mainList.PrintList();
+    mainList.PrintList2();
     fclose(fname);
     
 }
