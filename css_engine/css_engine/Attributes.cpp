@@ -28,10 +28,10 @@ void AttributeList::AppendNode(CustomString* name, CustomString* value) {
 }
 
 void AttributeList::PrintList() {
-	AttributeNode* current = head;
-	while (current != nullptr) {
-		cout << current->name << current->value << endl;
-		current = current->next;
+	AttributeNode* currentAttNode = head;
+	while (currentAttNode != nullptr) {
+		cout << currentAttNode->name << currentAttNode->value << endl;
+		currentAttNode = currentAttNode->next;
 	}
 }
 

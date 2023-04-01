@@ -7,10 +7,11 @@
 class Section;
 
 struct BlockNode {
+	int holding;
 	BlockNode* next;
 	BlockNode* prev;
-	Section SectionList[T];
-	
+	Section section;
+	//Section SectionList[T];
 	BlockNode();
 };
 
@@ -18,9 +19,8 @@ struct BlockNode {
 class BlockList {
 public:
 	BlockList();
-	void AppendNode(AttributeList* AttList, SelectorList* SelList);
+	void AppendNode(Section section);
+	void PrintList();
 	BlockNode* head;
-	BlockNode* tail;
-	BlockNode content;
 	
 };

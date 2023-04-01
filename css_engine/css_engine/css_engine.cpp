@@ -38,7 +38,14 @@ int main(int argc, char** argv)
             DissectAndAppendAttributes(&AttributeL, &att, ";");
 
             Section Section(AttributeL, SelectorL);
+
+           
+
+           /* cout << "Zbudowana sekcja: " << endl;
             Section.PrintSection();
+            cout << endl;*/
+
+            mainList.AppendNode(Section);
 
             att.EmptyString();
             sel.EmptyString();
@@ -55,12 +62,8 @@ int main(int argc, char** argv)
         }
 
     }
+    mainList.PrintList();
     fclose(fname);
-    /*CustomString siema("siema1");
-    AttributeList lista1;
-    lista1.AppendNode(&siema, &siema);
-    lista1.AppendNode(&siema, &siema);
-    lista1.AppendNode(&siema, &siema);
-    lista1.PrintList();*/
+    
 }
 

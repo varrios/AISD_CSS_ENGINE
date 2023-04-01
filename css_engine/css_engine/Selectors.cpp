@@ -28,10 +28,10 @@ void SelectorList::AppendNode(CustomString* name) {
 }
 
 void SelectorList::PrintList() {
-	SelectorNode* current = head;
-	while (current != nullptr) {
-		cout << current->name << endl;
-		current = current->next;
+	SelectorNode* currentSelNode = head;
+	while (currentSelNode != nullptr) {
+		cout << currentSelNode->name << endl;
+		currentSelNode = currentSelNode->next;
 	}
 }
 
