@@ -6,6 +6,14 @@ BlockList::BlockList() {
 	tail = NULL;
 }
 
+BlockNode::BlockNode() {
+	reached_max = '0';
+	deleted = '0';
+	sectionList = new Section[T];
+	holding = 0;
+	next = NULL;
+	prev = NULL;
+}
 
 //void BlockList::AppendNode(Section section) {
 //	BlockNode* newNode = new BlockNode;
@@ -110,14 +118,7 @@ void BlockList::PrintList() {
 		currentBlockNode = currentBlockNode->next;
 	}
 }
-BlockNode::BlockNode() {
-	reached_max = '0';
-	deleted = '0';
-	sectionList = new Section[T];
-	holding = 0;
-	next = NULL;
-	prev = NULL;
-}
+
 
 Section* BlockList::FindSection(int section_num) {
 	BlockNode* currentBlockNode = head;
@@ -300,7 +301,8 @@ bool BlockList::DeleteSection(int section_num) {
 	currentBlockNode->sectionList[index].AttList.DeleteList();
 	currentBlockNode->sectionList[index].SelList.DeleteList();
 	currentBlockNode->sectionList[index].deleted = '1';
-	if (--(currentBlockNode->holding) == 0) {
+	currentBlockNode->holding--;
+	if ((currentBlockNode->holding) <= 0) {
 		if (currentBlockNode == NULL) {
 			return 0;
 		}
@@ -316,6 +318,7 @@ bool BlockList::DeleteSection(int section_num) {
 		if (currentBlockNode->next != NULL) {
 			currentBlockNode->next->prev = currentBlockNode->prev;
 		}
+		delete currentBlockNode;
 	}
 	return 1;
 	

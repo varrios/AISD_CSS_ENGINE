@@ -73,7 +73,7 @@ bool AttributeList::DeleteNode(const char* name) {
 			return 1;
 		}
 		AttributeNode* currentNode = head;
-		while (currentNode != NULL) {
+		while (currentNode != nullptr) {
 			if (currentNode->next == nodeToDelete) {
 				currentNode->next = nodeToDelete->next;
 				this->AttCount--;

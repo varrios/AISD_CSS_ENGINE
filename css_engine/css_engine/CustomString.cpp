@@ -36,7 +36,6 @@ CustomString::CustomString(CustomString&& other) {
 CustomString::~CustomString() {
     if (str != nullptr)
         delete[] str;
-
 }
 
 CustomString CustomString::operator +(const char* s1) {
@@ -74,9 +73,9 @@ CustomString& CustomString::operator=(const CustomString& rhs)
 }
 
 void CustomString::EmptyString() {
-    delete[] str;
-    str = new char[1];
-    str[0] = '\0';
+        //delete[] str;
+        str = new char[1];
+        str[0] = '\0';
 }
 
 ostream& operator<<(ostream& ostr, CustomString& s)

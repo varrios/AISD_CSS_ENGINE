@@ -8,7 +8,7 @@
 #include "functions.h"
 
 using namespace std;
-int main(int argc, char** argv)
+int main()
 {
     BlockList mainList;
     CustomString command("");
