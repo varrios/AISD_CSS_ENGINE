@@ -7,6 +7,7 @@ struct SelectorNode {
 
 class SelectorList {
 public:
+    int SelCount;
     SelectorNode* head;
     void AppendNode(CustomString* name);
     void PrintList();

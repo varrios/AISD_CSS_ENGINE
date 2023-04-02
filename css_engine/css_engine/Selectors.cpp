@@ -5,6 +5,7 @@ using namespace std;
 
 SelectorList::SelectorList() {
 	head = NULL;
+	SelCount = 0;
 }
 
 void SelectorList::AppendNode(CustomString* name) {
@@ -16,6 +17,7 @@ void SelectorList::AppendNode(CustomString* name) {
 
 	if (head == NULL) {
 		head = newNode;
+		SelCount++;
 		//cout << "Attribute node appended as head node" << endl;
 		return;
 	}
@@ -23,6 +25,7 @@ void SelectorList::AppendNode(CustomString* name) {
 		lastNode = lastNode->next;
 	}
 	lastNode->next = newNode;
+	SelCount++;
 	//cout << "Attribute node appended at the end" << endl;
 	//cout << newNode->name << "<- name" << endl;
 }

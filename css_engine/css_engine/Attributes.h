@@ -13,6 +13,7 @@ struct AttributeNode {
 
 class AttributeList {
 public:
+	int AttCount;
 	AttributeNode *head;
 	AttributeList();
 	void AppendNode(CustomString* name, CustomString* value);

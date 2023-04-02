@@ -10,7 +10,6 @@ struct BlockNode {
 	int holding;
 	BlockNode* next;
 	BlockNode* prev;
-	Section section;
 	Section *sectionList;
 	BlockNode();
 	void AppendSection(Section section);
@@ -21,10 +20,10 @@ class BlockList {
 public:
 	BlockList();
 	void AppendNode(Section section);
-	void AppendNode2(Section section);
 	void PrintList();
-	void PrintList2();
 	BlockNode* head;
 	BlockNode* tail;
+	int CountSections();
+	int CountSelectorsInSection(int section_num);
 	
 };

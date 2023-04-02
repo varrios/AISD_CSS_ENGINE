@@ -130,6 +130,7 @@
     <ClCompile Include="Attributes.cpp" />
     <ClCompile Include="Blocks.cpp" />
     <ClCompile Include="css_engine.cpp" />
+    <ClCompile Include="functions.cpp" />
     <ClCompile Include="Sections.cpp" />
     <ClCompile Include="CustomString.cpp" />
     <ClCompile Include="Selectors.cpp" />
@@ -138,6 +139,7 @@
     <ClInclude Include="Attributes.h" />
     <ClInclude Include="Blocks.h" />
     <ClInclude Include="CustomString.h" />
+    <ClInclude Include="functions.h" />
     <ClInclude Include="Sections.h" />
     <ClInclude Include="Selectors.h" />
   </ItemGroup>

@@ -5,14 +5,19 @@
 #include "Attributes.h"
 #include "Selectors.h"
 #include "CustomString.h"
+#include "functions.h"
+
 using namespace std;
 int main(int argc, char** argv)
 {
     BlockList mainList;
+    CustomString command("");
     CustomString buffer("");
     CustomString att("");
     CustomString sel("");
     bool attribute = 0;
+    bool commands = 0;
+    bool load = 1;
 
 
     FILE* fname{};
@@ -23,46 +28,60 @@ int main(int argc, char** argv)
     while ((ch = fgetc(fname)) != EOF) {
         char znak = (char)ch;
         switch (znak) {
-        case '{':
-            attribute = 1;
-            continue;
-            break;
+            case '{':
+                attribute = 1;
+                continue;
+                break;
 
-        case '}':
-            AttributeList AttributeL;
-            SelectorList SelectorL;
-            
+            case '}':
+                AttributeList AttributeL;
+                SelectorList SelectorL;
+                
 
-            attribute = 0;
-            DissectAndAppendSelectors(&SelectorL, &sel);
-            DissectAndAppendAttributes(&AttributeL, &att, ";");
+                attribute = 0;
+                DissectAndAppendSelectors(&SelectorL, &sel);
+                DissectAndAppendAttributes(&AttributeL, &att, ";");
+                Section Section(AttributeL, SelectorL);
 
-            Section Section(AttributeL, SelectorL);
+                mainList.AppendNode(Section);
 
-           
-
-           /* cout << "Zbudowana sekcja: " << endl;
-            Section.PrintSection();
-            cout << endl;*/
-
-            mainList.AppendNode2(Section);
-
-            att.EmptyString();
-            sel.EmptyString();
-            continue;
-            break;
-        }
-        if (ch != '\n' && ch != ' ') {
-            if (attribute) {
-                att.PushChar(znak);
+                att.EmptyString();
+                sel.EmptyString();
+                continue;
+                break;
             }
-            else {
-                sel.PushChar(znak);
+
+        if (ch != ' ') {
+            if (strcmp(sel.str, "????") == 0) {
+                commands = 1;
+                sel.EmptyString();
+            }
+            else if (strcmp(command.str, "****") == 0) {
+                commands = 0;
+                command.EmptyString();
+            }
+
+            if (commands == 0 && ch != '\n') {
+                if (attribute) {
+                    att.PushChar(znak);
+                }
+                else {
+                    sel.PushChar(znak);
+                }
+            }
+            else if(commands == 1) {
+                if (ch == '\n' || ch == EOF) {
+                    ParseCommand(&command, &mainList);
+                }
+                else {
+                    command.PushChar(znak);
+                }
             }
         }
+        
 
     }
-    mainList.PrintList2();
+    //mainList.PrintList();
     fclose(fname);
     
 }

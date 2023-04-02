@@ -2,6 +2,7 @@
 
 AttributeList::AttributeList() {
 	head = NULL;
+	AttCount = 0;
 }
 
 void AttributeList::AppendNode(CustomString* name, CustomString* value) {
@@ -15,14 +16,24 @@ void AttributeList::AppendNode(CustomString* name, CustomString* value) {
 
 	if (head == NULL) {
 		head = newNode;
+		this->AttCount++;
 		//cout << newNode->name << "  " << newNode->value << endl;
 		//cout << "Attribute node appended as head node" << endl;
 		return;
 	}
 	while (lastNode->next != NULL) {
+		if (strcmp(lastNode->name, name->str) == 0) {
+			strcpy(lastNode->value, value->str);
+			return;
+		}
 		lastNode = lastNode->next;
 	}
+	if (strcmp(lastNode->name, name->str) == 0) {
+		strcpy(lastNode->value, value->str);
+		return;
+	}
 	lastNode->next = newNode;
+	this->AttCount++;
 	//cout << "Attribute node appended at the end" << endl;
 	//cout << newNode->name  << "  " << newNode->value << endl;
 }
@@ -35,26 +46,3 @@ void AttributeList::PrintList() {
 	}
 }
 
-void DissectAndAppendAttributes(AttributeList* AttL, CustomString* att, const char* delimiter) {
-	char* token = strtok(att->str, ";");
-	while (token != NULL) {
-		CustomString name("");
-		CustomString value("");
-		bool flag = 0;
-		for (int i = 0; i < strlen(token); i++) {
-			if (token[i] == ':') {
-				flag = 1;
-				continue;
-			}
-			if (flag) {
-				value.PushChar(token[i]);
-			}
-			else {
-				name.PushChar(token[i]);
-			}
-
-		}
-		token = strtok(NULL, ";");
-		AttL->AppendNode(&name, &value);
-	}
-}
