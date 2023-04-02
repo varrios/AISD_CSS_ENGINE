@@ -64,7 +64,7 @@ int main()
                 if (attribute) {
                     att.PushChar(znak);
                 }
-                else if(ch != ' ') {
+                else if(true) {
                     sel.PushChar(znak);
                 }
             }

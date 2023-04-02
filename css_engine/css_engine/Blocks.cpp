@@ -157,31 +157,6 @@ int BlockList::CountAttributesInSection(int section_num) {
 
 
 char* BlockList::SelectorNameInSection(int section_num, int selector_num) {
-	/*BlockNode* currentBlockNode = head;
-	int counter = 0;
-	bool flag = 0;
-	while (currentBlockNode != NULL) {
-		for (int i = 0; i < T; i++) {
-			if (flag) {
-				break;
-			}
-			if (currentBlockNode->sectionList[i].added == '1' && currentBlockNode->sectionList[i].deleted == '0') {
-				counter++;
-			}
-			if (counter > section_num || currentBlockNode->sectionList[i].added != '1') {
-				return NULL;
-			}
-			if (counter == section_num) {
-				flag = 1;
-			}
-
-		}
-		if (flag) {
-			break;
-		}
-		else
-			currentBlockNode = currentBlockNode->next;
-	}*/
 	Section* found_section = this->FindSection(section_num);
 	if (found_section == nullptr) {
 		return NULL;

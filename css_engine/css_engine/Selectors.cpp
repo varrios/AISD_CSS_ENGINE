@@ -1,5 +1,6 @@
  #include "Selectors.h";
 #include <stdio.h>
+#include "functions.h"
 #include <string.h>
 using namespace std;
 
@@ -45,6 +46,7 @@ void DissectAndAppendSelectors(SelectorList* SelectorL, CustomString* selectors)
 		CustomString name("");
 		name = token;
 		token = strtok(NULL, ",");
+		trim(name.str);
 		SelectorL->AppendNode(&name);
 	}
 }
