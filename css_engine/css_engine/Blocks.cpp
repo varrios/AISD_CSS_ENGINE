@@ -252,6 +252,9 @@ char* BlockList::GetLastAttributeValue(const char* attribute_name, const char* s
 }
 
 bool BlockList::DeleteSection(int section_num) {
+	if (section_num <= 0) {
+		return 0;
+	}
 	BlockNode* currentBlockNode = head;
 	int index = 0;
 	int counter = 0;
@@ -273,14 +276,11 @@ bool BlockList::DeleteSection(int section_num) {
 	}
 	if (currentBlockNode == NULL)
 		return 0;
-	currentBlockNode->sectionList[index].AttList.DeleteList();
-	currentBlockNode->sectionList[index].SelList.DeleteList();
+	//currentBlockNode->sectionList[index].AttList.DeleteList();
+	//currentBlockNode->sectionList[index].SelList.DeleteList();
 	currentBlockNode->sectionList[index].deleted = '1';
 	currentBlockNode->holding--;
 	if ((currentBlockNode->holding) <= 0) {
-		if (currentBlockNode == NULL) {
-			return 0;
-		}
 		if (currentBlockNode == head) {
 			head = currentBlockNode->next;
 		}
@@ -293,13 +293,17 @@ bool BlockList::DeleteSection(int section_num) {
 		if (currentBlockNode->next != NULL) {
 			currentBlockNode->next->prev = currentBlockNode->prev;
 		}
-		delete currentBlockNode;
+		if(currentBlockNode != NULL)
+			delete currentBlockNode;
 	}
 	return 1;
 	
 } 
 
 bool BlockList::DeleteAttribute(int section_num ,const char* name) {
+	if (section_num <= 0) {
+		return 0;
+	}
 	Section* section = this->FindSection(section_num);
 	if (section != nullptr) {
 		section->AttList.DeleteNode(name);

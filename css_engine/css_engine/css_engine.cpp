@@ -18,7 +18,6 @@ int main()
     bool attribute = 0;
     bool commands = 0;
 
-
     FILE* fname{};
     const char* filename = "test_input.txt";
     int ch;
@@ -26,6 +25,9 @@ int main()
     fname = fopen(filename, "r");
     while ((ch = fgetc(fname)) != EOF) {
         char znak = (char)ch;
+        if (ch < ' ' && ch != 10)
+            continue;
+        
         switch (znak) {
             case '{':
                 attribute = 1;
@@ -49,7 +51,6 @@ int main()
                 continue;
                 break;
             }
-
         if (ch != '\t') {
             if (strcmp(sel.str, "????") == 0) {
                 commands = 1;
@@ -60,7 +61,7 @@ int main()
                 command.EmptyString();
             }
 
-            if (commands == 0 && ch != '\n') {
+            if (commands == 0 && ch != '\n' ) {
                 if (attribute) {
                     att.PushChar(znak);
                 }

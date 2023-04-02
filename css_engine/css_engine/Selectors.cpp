@@ -22,7 +22,9 @@ void SelectorList::AppendNode(CustomString* name) {
 		//cout << "Attribute node appended as head node" << endl;
 		return;
 	}
-	while (lastNode->next != NULL) {
+	while (lastNode->next != nullptr) {
+		if (strcmp(lastNode->name, name->str) == 0 && strlen(lastNode->name) != 0)
+			return;
 		lastNode = lastNode->next;
 	}
 	lastNode->next = newNode;
@@ -56,7 +58,8 @@ void SelectorList::DeleteList() {
 	this->SelCount = 0;
 	while (current != nullptr) {
 		SelectorNode* next = current->next;
-		delete current;
+		if (current != NULL)
+			delete current;
 		current = next;
 	}
 	head = nullptr;

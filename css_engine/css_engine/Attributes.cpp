@@ -51,7 +51,8 @@ void AttributeList::DeleteList() {
 	this->AttCount = 0;
 	while (current != nullptr) {
 		AttributeNode* next = current->next;
-		delete current;
+		if(current != NULL)
+			delete current;
 		current = next;
 	}
 
