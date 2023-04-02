@@ -117,8 +117,37 @@ BlockNode::BlockNode() {
 }
 
 
-int BlockList::CountSelectorsInSection(int section_num) {
+Section *BlockList::FindSection(int section_num) {
 	BlockNode* currentBlockNode = head;
+	int counter = 0;
+	bool flag = 0;
+	while (currentBlockNode != NULL) {
+		for (int i = 0; i < T; i++) {
+			if (flag) {
+				break;
+			}
+			if (currentBlockNode->sectionList[i].added == '1' && currentBlockNode->sectionList[i].deleted == '0') {
+				counter++;
+			}
+			if (counter > section_num || currentBlockNode->sectionList[i].added != '1') {
+				return nullptr;
+			}
+			if (counter == section_num) {
+				flag = 1;
+			}
+
+		}
+		if (flag) {
+			break;
+		}
+		else
+			currentBlockNode = currentBlockNode->next;
+	}
+	return &(currentBlockNode->sectionList[(counter - 1) % T]);
+}
+
+int BlockList::CountSelectorsInSection(int section_num) {
+	/*BlockNode* currentBlockNode = head;
 	int counter = 0;
 	bool flag = 0;
 	while (currentBlockNode != NULL) {
@@ -142,5 +171,162 @@ int BlockList::CountSelectorsInSection(int section_num) {
 		}else
 		currentBlockNode = currentBlockNode->next;
 	}
-	return currentBlockNode->sectionList[(counter-1)%T].SelList.SelCount;
+	return currentBlockNode->sectionList[(counter-1)%T].SelList.SelCount;*/
+	Section *found_section = this->FindSection(section_num);
+	if (found_section != nullptr) {
+		return found_section->SelList.SelCount;
+	}
+	return -1;
+}
+
+
+int BlockList::CountAttributesInSection(int section_num) {
+	//BlockNode* currentBlockNode = head;
+	//int counter = 0;
+	//bool flag = 0;
+	//while (currentBlockNode != NULL) {
+	//	for (int i = 0; i < T; i++) {
+	//		if (flag) {
+	//			break;
+	//		}
+	//		if (currentBlockNode->sectionList[i].added == '1' && currentBlockNode->sectionList[i].deleted == '0') {
+	//			counter++;
+	//		}
+	//		if (counter > section_num || currentBlockNode->sectionList[i].added != '1') {
+	//			return -1;
+	//		}
+	//		if (counter == section_num) {
+	//			flag = 1;
+	//		}
+
+	//	}
+	//	if (flag) {
+	//		break;
+	//	}
+	//	else
+	//		currentBlockNode = currentBlockNode->next;
+	//}
+	//return currentBlockNode->sectionList[(counter - 1) % T].AttList.AttCount;
+	Section* found_section = this->FindSection(section_num);
+	if (found_section != nullptr) {
+		return found_section->AttList.AttCount;
+	}
+	return -1;
+}
+
+
+char* BlockList::SelectorNameInSection(int section_num, int selector_num) {
+	/*BlockNode* currentBlockNode = head;
+	int counter = 0;
+	bool flag = 0;
+	while (currentBlockNode != NULL) {
+		for (int i = 0; i < T; i++) {
+			if (flag) {
+				break;
+			}
+			if (currentBlockNode->sectionList[i].added == '1' && currentBlockNode->sectionList[i].deleted == '0') {
+				counter++;
+			}
+			if (counter > section_num || currentBlockNode->sectionList[i].added != '1') {
+				return NULL;
+			}
+			if (counter == section_num) {
+				flag = 1;
+			}
+
+		}
+		if (flag) {
+			break;
+		}
+		else
+			currentBlockNode = currentBlockNode->next;
+	}*/
+	SelectorNode* currentSelNode = this->FindSection(section_num)->SelList.head;
+	int index = 1;
+	while (currentSelNode != NULL) {
+		if (index == selector_num) {
+			return currentSelNode->name;
+		}
+		index++;
+		currentSelNode = currentSelNode->next;
+	}
+	return NULL;
+}
+
+char* BlockList::GetAttributeValueInSection(int section_num, const char* attribute_name) {
+	Section* foundSection = this->FindSection(section_num);
+	if (foundSection != NULL) {
+		AttributeNode* currentAttNode = foundSection->AttList.head;
+		while (currentAttNode != NULL) {
+			if (strcmp(currentAttNode->name, attribute_name) == 0) {
+				return currentAttNode->value;
+			}
+			currentAttNode = currentAttNode->next;
+		}
+	}
+	return NULL;
+}
+
+
+int BlockList::CountAttributesByName(const char* name) {
+	BlockNode* currentBlockNode = head;
+	int counter = 0;
+	while (currentBlockNode != NULL) {
+		for (int i = 0; i < T; i++) {
+			AttributeNode* current_AttNode = currentBlockNode->sectionList[i].AttList.head;
+			while (current_AttNode != nullptr) {
+				if (strcmp(current_AttNode->name, name) == 0)
+					counter++;
+				current_AttNode = current_AttNode->next;
+			}
+		}
+		currentBlockNode = currentBlockNode->next;
+	}
+	return counter;
+	
+}
+
+
+int BlockList::CountSelectorsByName(const char* name) {
+	BlockNode* currentBlockNode = head;
+	int counter = 0;
+	while (currentBlockNode != NULL) {
+		for (int i = 0; i < T; i++) {
+			SelectorNode* current_SelNode = currentBlockNode->sectionList[i].SelList.head;
+			while (current_SelNode != nullptr) {
+				if (strcmp(current_SelNode->name, name) == 0)
+					counter++;
+				current_SelNode = current_SelNode->next;
+			}
+		}
+		currentBlockNode = currentBlockNode->next;
+	}
+	return counter;
+
+}
+
+char* BlockList::GetLastAttributeValue(const char* attribute_name, const char* selector_name) {
+	struct BlockNode* currentBlockNode = tail;
+
+	while (currentBlockNode != NULL) {
+		for (int i = T - 1; i >= 0; i--) {
+			if (currentBlockNode->sectionList[i].added == '1' && currentBlockNode->sectionList[i].deleted == '0') {
+				SelectorNode* current_SelNode = currentBlockNode->sectionList[i].SelList.head;
+				while (current_SelNode != nullptr) {
+					if (strcmp(current_SelNode->name, selector_name) == 0) {
+						AttributeNode* current_AttNode = currentBlockNode->sectionList[i].AttList.head;
+						while (current_AttNode != nullptr) {
+							if (strcmp(current_AttNode->name, attribute_name) == 0)
+								return current_AttNode->value;
+							current_AttNode = current_AttNode->next;
+						}
+					}
+						
+					current_SelNode = current_SelNode->next;
+				}
+			}
+		}
+		currentBlockNode = currentBlockNode->prev;
+	}
+	return nullptr;
 }

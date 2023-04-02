@@ -25,5 +25,12 @@ public:
 	BlockNode* tail;
 	int CountSections();
 	int CountSelectorsInSection(int section_num);
+	int CountAttributesInSection(int section_num);
+	char* SelectorNameInSection(int section_num, int selector_num);
+	char* GetAttributeValueInSection(int section_num, const char* attribute_name);
+	int CountAttributesByName(const char* name);
+	int CountSelectorsByName(const char* name);
+	char* GetLastAttributeValue(const char* attribute_name, const char* selector_name);
+	Section *FindSection(int section_num);
 	
 };

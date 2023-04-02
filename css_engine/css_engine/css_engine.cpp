@@ -51,7 +51,7 @@ int main(int argc, char** argv)
                 break;
             }
 
-        if (ch != ' ') {
+        if (true) {
             if (strcmp(sel.str, "????") == 0) {
                 commands = 1;
                 sel.EmptyString();
@@ -65,7 +65,7 @@ int main(int argc, char** argv)
                 if (attribute) {
                     att.PushChar(znak);
                 }
-                else {
+                else if(ch != ' ') {
                     sel.PushChar(znak);
                 }
             }
