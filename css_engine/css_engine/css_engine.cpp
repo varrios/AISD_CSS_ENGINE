@@ -17,7 +17,6 @@ int main(int argc, char** argv)
     CustomString sel("");
     bool attribute = 0;
     bool commands = 0;
-    bool load = 1;
 
 
     FILE* fname{};
@@ -51,7 +50,7 @@ int main(int argc, char** argv)
                 break;
             }
 
-        if (true) {
+        if (ch != '\t') {
             if (strcmp(sel.str, "????") == 0) {
                 commands = 1;
                 sel.EmptyString();
@@ -70,8 +69,9 @@ int main(int argc, char** argv)
                 }
             }
             else if(commands == 1) {
-                if (ch == '\n' || ch == EOF) {
+                if (ch == '\n' || ch == EOF || ch == '\b') {
                     ParseCommand(&command, &mainList);
+                    command.EmptyString();
                 }
                 else {
                     command.PushChar(znak);
@@ -82,7 +82,7 @@ int main(int argc, char** argv)
 
     }
     //mainList.PrintList();
-    fclose(fname);
+    //fclose(fname);
     
 }
 

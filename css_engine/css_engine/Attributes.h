@@ -18,6 +18,8 @@ public:
 	AttributeList();
 	void AppendNode(CustomString* name, CustomString* value);
 	void PrintList();
+	void DeleteList();
+	bool DeleteNode(const char *name);
 };
 
 void DissectAndAppendAttributes(AttributeList* AttL, CustomString* att, const char* delimiter);

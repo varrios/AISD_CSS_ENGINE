@@ -11,7 +11,9 @@ public:
     SelectorNode* head;
     void AppendNode(CustomString* name);
     void PrintList();
+    void DeleteList();
     SelectorList();
 };
 
 void DissectAndAppendSelectors(SelectorList* SelectorL, CustomString* selectors);
+

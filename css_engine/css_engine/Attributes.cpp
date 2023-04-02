@@ -46,3 +46,43 @@ void AttributeList::PrintList() {
 	}
 }
 
+void AttributeList::DeleteList() {
+	AttributeNode* current = head;
+	this->AttCount = 0;
+	while (current != nullptr) {
+		AttributeNode* next = current->next;
+		delete current;
+		current = next;
+	}
+
+	head = nullptr;
+}
+
+bool AttributeList::DeleteNode(const char* name) {
+	AttributeNode* nodeToDelete = head;
+	while (nodeToDelete != nullptr) {
+		if (strcmp(nodeToDelete->name, name) == 0)
+			break;
+		nodeToDelete = nodeToDelete->next;
+	}
+	if (nodeToDelete != nullptr) {
+		if (nodeToDelete == head) {
+			head = head->next;
+			this->AttCount--;
+			delete nodeToDelete;
+			return 1;
+		}
+		AttributeNode* currentNode = head;
+		while (currentNode != NULL) {
+			if (currentNode->next == nodeToDelete) {
+				currentNode->next = nodeToDelete->next;
+				this->AttCount--;
+				delete nodeToDelete;
+				return 1;
+			}
+			currentNode = currentNode->next;
+		}
+	}
+	return 0;
+}
+

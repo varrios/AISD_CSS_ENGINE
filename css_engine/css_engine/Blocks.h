@@ -6,6 +6,7 @@
 class Section;
 
 struct BlockNode {
+	char reached_max;
 	char deleted;
 	int holding;
 	BlockNode* next;
@@ -32,5 +33,6 @@ public:
 	int CountSelectorsByName(const char* name);
 	char* GetLastAttributeValue(const char* attribute_name, const char* selector_name);
 	Section *FindSection(int section_num);
-	
+	bool DeleteSection(int section_num);
+	bool DeleteAttribute(int section_num, const char* name);
 };

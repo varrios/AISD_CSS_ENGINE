@@ -97,6 +97,18 @@
 			cout << command->str << " == " << FoundVal << endl;
 		 return;
 	 }
+	 else if (arg2[0] == 'D' && checkInteger(arg1) && arg3[0] == '*') { //ostatni
+		 bool res = BList->DeleteSection(atoi(arg1));
+		 if (res == 1)
+			 cout << command->str << " == deleted" << endl;
+		 return;
+	 }
+	 else if (arg2[0] == 'D' && checkInteger(arg1) && checkInteger(arg3) == 0) { //ostatni
+		 bool res = BList->DeleteAttribute(atoi(arg1), arg3);
+		 if (res == 1)
+			 cout << command->str << " == deleted" << endl;
+		 return;
+	 }
  }
 
  bool checkInteger(const char* arr) {

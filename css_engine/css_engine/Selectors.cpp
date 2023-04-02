@@ -48,3 +48,14 @@ void DissectAndAppendSelectors(SelectorList* SelectorL, CustomString* selectors)
 		SelectorL->AppendNode(&name);
 	}
 }
+
+void SelectorList::DeleteList() {
+	SelectorNode* current = head;
+	this->SelCount = 0;
+	while (current != nullptr) {
+		SelectorNode* next = current->next;
+		delete current;
+		current = next;
+	}
+	head = nullptr;
+}
