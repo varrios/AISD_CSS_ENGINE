@@ -40,10 +40,12 @@ int main()
                 
 
                 attribute = 0;
+                if (strlen(sel.str) == 0) {
+                    sel.PushChar('G');
+                }
                 DissectAndAppendSelectors(&SelectorL, &sel);
                 DissectAndAppendAttributes(&AttributeL, &att, ";");
                 Section Section(AttributeL, SelectorL);
-
                 mainList.AppendNode(Section);
 
                 att.EmptyString();
@@ -82,7 +84,7 @@ int main()
         
 
     }
-    //mainList.PrintList();
+    //nList.PrintList();
     //fclose(fname);
     
 }

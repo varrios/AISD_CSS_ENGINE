@@ -24,7 +24,10 @@ void SelectorList::AppendNode(CustomString* name) {
 	}
 	while (lastNode->next != nullptr) {
 		if (strcmp(lastNode->name, name->str) == 0 && strlen(lastNode->name) != 0)
+		{
+			delete newNode;
 			return;
+		}
 		lastNode = lastNode->next;
 	}
 	lastNode->next = newNode;

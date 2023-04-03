@@ -52,7 +52,7 @@
  }
 
 
- void ExecuteCommand(const char* arg1, const char* arg2, const char* arg3, BlockList* BList, CustomString* command){
+ void ExecuteCommand(char* arg1, char* arg2, char* arg3, BlockList* BList, CustomString* command){
 	 if(arg1[0] == '?' && strlen(arg2) == 0 && strlen(arg3) == 0)
 		 cout << "? == " << BList->CountSections() << endl;
 	 else if (arg2[0] == 'S' && arg3[0] == '?' && checkInteger(arg1)) {
