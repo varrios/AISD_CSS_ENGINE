@@ -72,7 +72,7 @@ int main()
                 }
             }
             else if(commands == 1) {
-                if (ch == '\n' || ch == EOF || ch == '\b') {
+                if (ch == '\n' || ch == '\b') {
                     ParseCommand(&command, &mainList);
                     command.EmptyString();
                 }
@@ -81,11 +81,10 @@ int main()
                 }
             }
         }
-        
-
     }
-    //nList.PrintList();
-    //fclose(fname);
+    if (ch == EOF) {
+        ParseCommand(&command, &mainList);
+    }
     
 }
 
