@@ -1,6 +1,5 @@
  #include "Selectors.h";
 #include <stdio.h>
-#include "functions.h"
 #include <string.h>
 using namespace std;
 
@@ -22,12 +21,7 @@ void SelectorList::AppendNode(CustomString* name) {
 		//cout << "Attribute node appended as head node" << endl;
 		return;
 	}
-	while (lastNode->next != nullptr) {
-		if (strcmp(lastNode->name, name->str) == 0 && strlen(lastNode->name) != 0)
-		{
-			delete newNode;
-			return;
-		}
+	while (lastNode->next != NULL) {
 		lastNode = lastNode->next;
 	}
 	lastNode->next = newNode;
@@ -51,7 +45,6 @@ void DissectAndAppendSelectors(SelectorList* SelectorL, CustomString* selectors)
 		CustomString name("");
 		name = token;
 		token = strtok(NULL, ",");
-		trim(name.str);
 		SelectorL->AppendNode(&name);
 	}
 }
@@ -61,8 +54,7 @@ void SelectorList::DeleteList() {
 	this->SelCount = 0;
 	while (current != nullptr) {
 		SelectorNode* next = current->next;
-		if (current != NULL)
-			delete current;
+		delete current;
 		current = next;
 	}
 	head = nullptr;

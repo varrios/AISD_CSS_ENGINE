@@ -18,6 +18,7 @@ int main()
     bool attribute = 0;
     bool commands = 0;
 
+
     FILE* fname{};
     const char* filename = "test_input.txt";
     int ch;
@@ -25,9 +26,6 @@ int main()
     fname = fopen(filename, "r");
     while ((ch = fgetc(fname)) != EOF) {
         char znak = (char)ch;
-        if (ch < ' ' && ch != 10)
-            continue;
-        
         switch (znak) {
             case '{':
                 attribute = 1;
@@ -40,17 +38,11 @@ int main()
                 
 
                 attribute = 0;
-                if (strlen(sel.str) == 0) {
-                    sel.PushChar('G');
-                }
                 DissectAndAppendSelectors(&SelectorL, &sel);
                 DissectAndAppendAttributes(&AttributeL, &att, ";");
                 Section Section(AttributeL, SelectorL);
-<<<<<<< HEAD
                 SelectorL.PrintList();
 
-=======
->>>>>>> 6836d6598cbe574742ca87fc5c0ac05497bc21c0
                 mainList.AppendNode(Section);
 
                 att.EmptyString();
@@ -58,6 +50,7 @@ int main()
                 continue;
                 break;
             }
+
         if (ch != '\t') {
             if (strcmp(sel.str, "????") == 0) {
                 commands = 1;
@@ -68,16 +61,16 @@ int main()
                 command.EmptyString();
             }
 
-            if (commands == 0 && ch != '\n' ) {
+            if (commands == 0 && ch != '\n') {
                 if (attribute) {
                     att.PushChar(znak);
                 }
-                else if(true) {
+                else if(ch != ' ') {
                     sel.PushChar(znak);
                 }
             }
             else if(commands == 1) {
-                if (ch == '\n' || ch == '\b') {
+                if (ch == '\n' || ch == EOF || ch == '\b') {
                     ParseCommand(&command, &mainList);
                     command.EmptyString();
                 }
@@ -86,10 +79,11 @@ int main()
                 }
             }
         }
+        
+
     }
-    if (ch == EOF) {
-        ParseCommand(&command, &mainList);
-    }
+    //mainList.PrintList();
+    //fclose(fname);
     
 }
 
