@@ -23,13 +23,15 @@ void AttributeList::AppendNode(CustomString* name, CustomString* value) {
 	}
 	while (lastNode->next != NULL) {
 		if (strcmp(lastNode->name, name->str) == 0) {
-			strcpy(lastNode->value, value->str);
+			strcpy(lastNode->value, newNode->value);
+			delete newNode;
 			return;
 		}
 		lastNode = lastNode->next;
 	}
 	if (strcmp(lastNode->name, name->str) == 0) {
-		strcpy(lastNode->value, value->str);
+		strcpy(lastNode->value, newNode->value);
+		delete newNode;
 		return;
 	}
 	lastNode->next = newNode;
@@ -51,7 +53,8 @@ void AttributeList::DeleteList() {
 	this->AttCount = 0;
 	while (current != nullptr) {
 		AttributeNode* next = current->next;
-		delete current;
+		if(current != NULL)
+			delete current;
 		current = next;
 	}
 

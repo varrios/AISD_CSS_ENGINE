@@ -20,6 +20,8 @@
 
 		}
 		token = strtok(NULL, ";");
+		trim(name.str);
+		trim(value.str);
 		AttL->AppendNode(&name, &value);
 	}
 }
@@ -50,7 +52,7 @@
  }
 
 
- void ExecuteCommand(const char* arg1, const char* arg2, const char* arg3, BlockList* BList, CustomString* command){
+ void ExecuteCommand(char* arg1, char* arg2, char* arg3, BlockList* BList, CustomString* command){
 	 if(arg1[0] == '?' && strlen(arg2) == 0 && strlen(arg3) == 0)
 		 cout << "? == " << BList->CountSections() << endl;
 	 else if (arg2[0] == 'S' && arg3[0] == '?' && checkInteger(arg1)) {
@@ -118,4 +120,24 @@
 		 i++;
 	 }
 	 return 1;
+ }
+
+ void trim(char* str) {
+	 int i = 0;
+	 while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n') {
+		 i++;
+	 }
+	 if (str[i] == '\0') {
+		 str[0] = '\0';
+		 return;
+	 }
+	 int j = strlen(str) - 1;
+	 while (j >= 0 && (str[j] == ' ' || str[j] == '\t' || str[j] == '\n')) {
+		 j--;
+	 }
+	 int k;
+	 for (k = 0; k <= j - i; k++) {
+		 str[k] = str[k + i];
+	 }
+	 str[k] = '\0';
  }
