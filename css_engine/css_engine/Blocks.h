@@ -7,7 +7,7 @@ class Section;
 
 struct BlockNode {
 	char reached_max;
-	char deleted;
+	int added;
 	int holding;
 	BlockNode* next;
 	BlockNode* prev;

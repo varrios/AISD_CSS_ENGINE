@@ -8,7 +8,7 @@ BlockList::BlockList() {
 
 BlockNode::BlockNode() {
 	reached_max = '0';
-	deleted = '0';
+	added = 0;
 	sectionList = new Section[T];
 	holding = 0;
 	next = NULL;
@@ -53,6 +53,7 @@ void BlockList::AppendNode(Section section) {
 	if (tail == NULL) {
 		//cout << "Created first BlockNode!" << endl;
 		BlockNode* newNode = new BlockNode;
+		newNode->added++;
 		newNode->AppendSection(section);
 		newNode->next = NULL;
 		newNode->prev = tail;
@@ -60,11 +61,12 @@ void BlockList::AppendNode(Section section) {
 		tail = newNode;
 		return;
 	}
-	else if(tail->holding >= T) {
+	else if(tail->added >= T) {
 		tail->reached_max = '1';
 		//cout << "Created new BlockNode!" << endl;
 		BlockNode* newNode = new BlockNode;
 		newNode->AppendSection(section);
+		newNode->added++;
 		tail->next = newNode;
 		newNode->next = NULL;
 		newNode->prev = tail;

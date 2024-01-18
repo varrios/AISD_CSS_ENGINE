@@ -41,6 +41,7 @@ int main()
                 DissectAndAppendSelectors(&SelectorL, &sel);
                 DissectAndAppendAttributes(&AttributeL, &att, ";");
                 Section Section(AttributeL, SelectorL);
+                SelectorL.PrintList();
 
                 mainList.AppendNode(Section);
 
